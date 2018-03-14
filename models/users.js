@@ -11,6 +11,11 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false,
         validate: {len:[1,45]}
       },
+      password: {
+        type: DataTypes.STRING, 
+        allowNull: false,
+        validate: {len: [1,10]}
+      },
     });
     return users;
   };
