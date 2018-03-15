@@ -3,7 +3,6 @@ $(document).ready(function() {
   function getUser() {
 
     $('#usersList').empty()
-    
     $.get("/api/users", function(data) {
       var rowsToAdd = [];
       for (var i = 0; i < data.length; i++) {
