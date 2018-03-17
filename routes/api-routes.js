@@ -16,6 +16,16 @@ app.post("/api/users", function(req, res) {
   });
 });
 
+app.post("/api/posts", function(req, res) {
+  console.log(req.body)
+  req.body.user_id = req.user.id
+    console.log(req.body)
+
+  db.Post.create(req.body).then(function(dbPost) {
+    res.json(dbPost);
+  });
+});
+
 
 
 //AUTHENTICATION ROUTES!
@@ -54,6 +64,7 @@ app.get("/logout", function(req, res) {
 
 // Route for getting some data about our user to be used client side
 app.get("/api/user_data", function(req, res) {
+  console.log(req)
   if (!req.user) {
     // The user is not logged in, send back an empty object
     res.json({});
