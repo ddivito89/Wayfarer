@@ -85,17 +85,59 @@
     <script src="./js/leaflet-sidebar.js"></script>
 
     <script>
+
         var map = L.map('map');
-         map.locate({ setView: true, maxZoom: 16 });
+            map.setView([51.505, -0.09], 6);
+            map.locate({ setView: true, maxZoom: 6 });
 
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; OpenStreetMap contributors'
-        }).addTo(map);
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: 'Map data &copy; OpenStreetMap contributors'
+            }).addTo(map);
 
-        var marker = L.marker([51.2, 7]).addTo(map);
+            // var marker = L.marker([51.2, 7]).addTo(map);
 
-        var sidebar = L.control.sidebar('sidebar').addTo(map);
+            var sidebar = L.control.sidebar('sidebar').addTo(map);
+
+            var popup = L.popup();
+
+
+            var pin = false
+
+            function addMarker(e) {
+                // Add marker to map at click location; add popup window
+                if (!pin) {
+                    var newMarker = new L.marker(e.latlng, {
+                        draggable: true
+                    }).addTo(map).bindPopup('<button>print</button>').openPopup();
+                    pin = true
+                    console.log(e.latlng);
+                    newMarker.on('dragend', function (event) {
+                        var marker = event.target;
+                        var position = marker.getLatLng();
+                        marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' });
+                        map.panTo(new L.LatLng(position.lat, position.lng))
+                        console.log(position);
+                    });
+                }    
+            };
+
+            map.on('dblclick', addMarker);
+
+
+    // function onMapClick(e) {
+    //     marker = new L.marker(e.latlng, { draggable: 'true' });
+    //     marker.on('dragend', function (event) {
+    //         var marker = event.target;
+    //         var position = marker.getLatLng();
+    //         marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' });
+    //         map.panTo(new L.LatLng(position.lat, position.lng))
+    //     });
+    //     map.addLayer(marker);
+    // };
+
+    // map.on('click', onMapClick);
+
     </script>
 </body>
 </html>
