@@ -78,9 +78,19 @@ function populateMap() {
   $.get("/api/posts", function(data) {
     console.log(data)
 
+    for (var y = 0; y<data.length; y++){
+      var lat = data[y].latitude
+      var lon = data[y].longitude
+      var marker = L.marker([lat, lon]).addTo(map);
+      var popupBox = document.createElement('div');
+      $(popupBox).append(`<p>Subject:${data[y].subject}</p>`)
+      $(popupBox).append(`<p>Text:${data[y].text}</p>`)
+      $(popupBox).append(`<p>User_Id:${data[y].user_id}</p>`)
+      marker.bindPopup(popupBox)
+    }
+
   });
 }
 
-function
 
 populateMap()
