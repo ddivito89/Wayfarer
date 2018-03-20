@@ -1,3 +1,4 @@
+
 var map = L.map('map');
 map.setView([
   41.8914, -87.6377
@@ -15,6 +16,16 @@ var popup = L.popup();
 
 var pin = false
 
+
+  var redMarker = L.AwesomeMarkers.icon({
+    icon: 'fa-bookmark',
+    markerColor: 'red'
+  });
+
+  L.marker([41.8914, -87.6377], { icon: redMarker }).addTo(map);
+
+
+
 function addMarker(e) {
   // Add marker to map at click location; add popup window
   if (!pin) {
@@ -24,12 +35,12 @@ function addMarker(e) {
     var position = newMarker.getLatLng();
     console.log("new pin pos:" + position);
 
-    var deleteBtn = $('<button>delete</button>').click(function() {
+    var deleteBtn = $('<button>delete</button>').click(function () {
       map.removeLayer(newMarker)
       pin = false;
     })[0];
 
-    var addPostBtn = $('<button>Post</button>').click(function() {
+    var addPostBtn = $('<button>Post</button>').click(function () {
       var postSubject = $('#post_subject').val()
       var postText = $('#post_text').val()
       var position = newMarker.getLatLng();
@@ -42,7 +53,8 @@ function addMarker(e) {
 
       console.log(postData)
 
-      $.post("/api/posts", postData).then(function(data) {
+      $.post("/api/posts", postData).then(function (data) {
+        pin = false
         console.log(data)
       });
     })[0];
@@ -58,13 +70,12 @@ function addMarker(e) {
 
     pin = true;
 
-    newMarker.on('dragend', function(event) {
+    newMarker.on('dragend', function (event) {
       var marker = event.target;
       var position = marker.getLatLng();
-      marker.setLatLng(new L.LatLng(position.lat, position.lng), {draggable: 'true'});
+      marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' });
       map.panTo(new L.LatLng(position.lat, position.lng))
       console.log("drag pin pos:" + position);
-
     });
 
   }
@@ -75,10 +86,34 @@ map.on('dblclick', addMarker);
 
 // Populate all postSubject
 function populateMap() {
-  $.get("/api/posts", function(data) {
+  $.get("/api/posts", function (data) {
     console.log(data)
 
-    for (var y = 0; y<data.length; y++){
+    for (var y = 0; y < data.length; y++) {
+      var lat = data[y].latitude
+      var lon = data[y].longitude
+      var marker = L.marker([lat, lon]).addTo(map);
+      var popupBox = document.createElement('div');
+      $(popupBox).append(`<p>Subject:${data[y].subject}</p>`)
+      $(popupBox).append(`<p>Text:${data[y].text}</p>`)
+      $(popupBox).append(`<p>User_Id:${data[y].user_id}</p>`)
+      marker.bindPopup(popupBox)
+    }
+
+  });
+}
+
+
+populateMap()
+map.on('dblclick', addMarker);
+
+
+// Populate all postSubject
+function populateMap() {
+  $.get("/api/posts", function (data) {
+    console.log(data)
+
+    for (var y = 0; y < data.length; y++) {
       var lat = data[y].latitude
       var lon = data[y].longitude
       var marker = L.marker([lat, lon]).addTo(map);

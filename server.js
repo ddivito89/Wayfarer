@@ -22,14 +22,6 @@ app.use(passport.session());
 require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
 
-//Set Handlebars
-var exphbs = require("express-handlebars");
-
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
-
-
-
 // Starts the server to begin listening
 db.sequelize.sync().then(function() {
     app.listen(PORT, function() {
