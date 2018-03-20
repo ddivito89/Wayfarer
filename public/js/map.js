@@ -15,6 +15,19 @@ var popup = L.popup();
 
 var pin = false
 
+var redMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
+
+L.marker([41.8914, -87.6377], { icon: redMarker }).addTo(map);
+
+var coffeeMarker = L.AwesomeMarkers.icon({ icon: 'comment', prefix: 'fa', markerColor: 'darkpurple', iconColor: '#f28f82'});
+
+L.marker([41.89, -87.63], { icon: coffeeMarker }).addTo(map);
+
+L.marker([41.8924, -87.6397], { icon: L.AwesomeMarkers.icon({ icon: 'shopping-cart', prefix: 'fa', markerColor: 'blue', iconColor: 'black' }) }).addTo(map);
+L.marker([41.8934, -87.6367], { icon: L.AwesomeMarkers.icon({ icon: 'info', prefix: 'fa', markerColor: 'orange' }) }).addTo(map);
+
+
+
 function addMarker(e) {
   // Add marker to map at click location; add popup window
   if (!pin) {
