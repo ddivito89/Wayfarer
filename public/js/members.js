@@ -6,13 +6,13 @@ $(document).ready(function() {
     console.log('ran')
 
     if (!data.email) {
-      console.log("no")
       $(".member-name").empty()
-      $(".member-name").text('please login');
+      $(".member-name").load("./partials/loginForm.html");
     } else {
       $(".member-name").empty()
       $(".member-name").text('logged in as ' + data.email);
       $(".member-name").append('<br><br><a href="/logout">logout</a>')
+
     }
   });
 });
