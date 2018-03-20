@@ -43,6 +43,7 @@ function addMarker(e) {
       console.log(postData)
 
       $.post("/api/posts", postData).then(function(data) {
+        pin=false
         console.log(data)
       });
     })[0];
@@ -64,7 +65,6 @@ function addMarker(e) {
       marker.setLatLng(new L.LatLng(position.lat, position.lng), {draggable: 'true'});
       map.panTo(new L.LatLng(position.lat, position.lng))
       console.log("drag pin pos:" + position);
-
     });
 
   }
