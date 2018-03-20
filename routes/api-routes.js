@@ -1,6 +1,8 @@
 var db = require("../models");
 var passport = require("../config/passport");
 
+var isAuthenticated = require("../config/middleware/isAuthenticated");
+
 module.exports = function(app) {
 
 app.get("/api/users", function(req, res) {
@@ -23,7 +25,7 @@ app.post("/api/posts", function(req, res) {
 
   db.Post.create(req.body).then(function(dbPost) {
     // res.json(dbPost);
-    res.redirect("/");
+      res.json(dbPost);
   });
 });
 
@@ -67,7 +69,7 @@ app.post("/api/signup", function(req, res) {
 // Route for logging user out
 app.get("/logout", function(req, res) {
   req.logout();
-  res.redirect("/");
+  res.redirect("/map");
 });
 
 // Route for getting some data about our user to be used client side
