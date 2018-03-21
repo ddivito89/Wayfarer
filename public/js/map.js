@@ -15,26 +15,19 @@ var popup = L.popup();
 
 var pin = false
 
-var redMarkerSpin = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
-var redMarker = L.AwesomeMarkers.icon({icon: 'comment', prefix: 'fa', markerColor: 'red', spin: false});
-
-// L.marker([41.8914, -87.6377], { icon: redMarker }).addTo(map);
-
-var coffeeMarker = L.AwesomeMarkers.icon({icon: 'comment', prefix: 'fa', markerColor: 'darkpurple', iconColor: '#f28f82'});
-
-// L.marker([41.89, -87.63], { icon: coffeeMarker }).addTo(map);
-//
-// L.marker([41.8924, -87.6397], { icon: L.AwesomeMarkers.icon({ icon: 'shopping-cart', prefix: 'fa', markerColor: 'blue', iconColor: 'black' }) }).addTo(map);
-// L.marker([41.8934, -87.6367], { icon: L.AwesomeMarkers.icon({ icon: 'info', prefix: 'fa', markerColor: 'orange' }) }).addTo(map);
+var tempMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
+var userMarker = L.AwesomeMarkers.icon({ icon: 'comment', prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
+var otherMarker = L.AwesomeMarkers.icon({ icon: 'info', prefix: 'fa', markerColor: 'orange', iconColor: 'blue' });
 
 function addMarker(e) {
   // Add marker to map at click location; add popup window
   if (!pin) {
 
     var newMarker = new L.marker(e.latlng, {
-      draggable: true,
-      icon: redMarkerSpin
-    }).addTo(map)
+      icon: tempMarker, 
+      draggable: true
+    }).addTo(map);
+    
     var position = newMarker.getLatLng();
 
     var deleteBtn = $('<button>delete</button>').click(function() {
@@ -104,11 +97,11 @@ function populateMap() {
       if (data[y].user_id - currentUserId === 0) {
         var marker = L.marker([
           lat, lon
-        ], {icon: redMarker}).addTo(map);
+        ], {icon: userMarker}).addTo(map);
       } else {
         var marker = L.marker([
           lat, lon
-        ], {icon: coffeeMarker}).addTo(map);
+        ], {icon: otherMarker}).addTo(map);
       }
       var popupBox = document.createElement('div');
       $(popupBox).attr('id', `post-${data[y].id}`)
@@ -132,11 +125,11 @@ function populateOne(id) {
       if (data.user_id - currentUserId === 0) {
         var marker = L.marker([
           lat, lon
-        ], {icon: redMarker}).addTo(map);
+        ], {icon: userMarker}).addTo(map);
       } else {
         var marker = L.marker([
           lat, lon
-        ], {icon: coffeeMarker}).addTo(map);
+        ], {icon: otherMarker}).addTo(map);
       }
       var popupBox = document.createElement('div');
       $(popupBox).attr('id', `post-${data.id}`)

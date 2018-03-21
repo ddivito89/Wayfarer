@@ -18,9 +18,9 @@ module.exports = function(app) {
   });
 
   app.post("/api/posts", function(req, res) {
-    console.log(req.body)
-    req.body.user_id = req.user.id
-    console.log(req.body)
+    console.log(req.body);
+    req.body.user_id = req.user.id;
+    console.log(req.body);
 
     db.Post.create(req.body).then(function(dbPost) {
       // res.json(dbPost);
