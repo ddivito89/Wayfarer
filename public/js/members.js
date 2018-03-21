@@ -3,16 +3,29 @@ $(document).ready(function() {
   // and updates the HTML on the page
 
   $.get("/api/user_data").then(function(data) {
-    console.log('ran')
-
     if (!data.email) {
       $(".member-name").empty()
-      $(".member-name").load("./partials/loginForm.html");
+      $("#auth-sidebar").show()
+      $("#signupForm-sidebar").hide()
+      $("#loginForm-sidebar").show()
     } else {
       $(".member-name").empty()
       $(".member-name").text('logged in as ' + data.email);
       $(".member-name").append('<br><br><a href="/logout">logout</a>')
-
+      $("#auth-sidebar").hide()
     }
   });
+
+  $(".switch").on('click', function(e){
+    e.preventDefault();
+   if (this.text === 'sign up'){
+     $("#signupForm-sidebar").show()
+     $("#loginForm-sidebar").hide()
+
+   }else{
+     $("#signupForm-sidebar").hide()
+     $("#loginForm-sidebar").show()
+
+   }
+  })
 });

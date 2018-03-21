@@ -28,10 +28,12 @@ $(document).ready(function() {
       email: email,
       password: password
     }).then(function(data) {
+      console.log(data)
       window.location.replace(data);
       // If there's an error, log the error
     }).catch(function(err) {
       console.log(err);
+      alert('invalid login')
     });
   }
 
