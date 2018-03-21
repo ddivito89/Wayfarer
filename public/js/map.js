@@ -15,25 +15,18 @@ var popup = L.popup();
 
 var pin = false
 
-var redMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
-
-L.marker([41.8914, -87.6377], { icon: redMarker }).addTo(map);
-
-var coffeeMarker = L.AwesomeMarkers.icon({ icon: 'comment', prefix: 'fa', markerColor: 'darkpurple', iconColor: '#f28f82'});
-
-L.marker([41.89, -87.63], { icon: coffeeMarker }).addTo(map);
-
-L.marker([41.8924, -87.6397], { icon: L.AwesomeMarkers.icon({ icon: 'shopping-cart', prefix: 'fa', markerColor: 'blue', iconColor: 'black' }) }).addTo(map);
-L.marker([41.8934, -87.6367], { icon: L.AwesomeMarkers.icon({ icon: 'info', prefix: 'fa', markerColor: 'orange' }) }).addTo(map);
-
-
+var tempMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
+var userMarker = L.AwesomeMarkers.icon({ icon: 'comment', prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
+var otherMarker = L.AwesomeMarkers.icon({ icon: 'info', prefix: 'fa', markerColor: 'orange', iconColor: 'blue' });
 
 function addMarker(e) {
   // Add marker to map at click location; add popup window
   if (!pin) {
     var newMarker = new L.marker(e.latlng, {
-      draggable: true,
-    }).addTo(map)
+      icon: tempMarker, 
+      draggable: true
+    }).addTo(map);
+    
     var position = newMarker.getLatLng();
     console.log("new pin pos:" + position);
 
@@ -58,6 +51,7 @@ function addMarker(e) {
       $.post("/api/posts", postData).then(function(data) {
         pin=false
         console.log(data)
+        newMarker = userMarker;
       });
     })[0];
 
@@ -92,9 +86,14 @@ function populateMap() {
     console.log(data)
 
     for (var y = 0; y<data.length; y++){
+
+      // need to create if else statements for if the post does or doesn't belong to the user account
       var lat = data[y].latitude
       var lon = data[y].longitude
-      var marker = L.marker([lat, lon]).addTo(map);
+      var marker = L.marker([lat, lon], {
+        icon: otherMarker,
+        draggable: false
+      }).addTo(map);
       var popupBox = document.createElement('div');
       $(popupBox).append(`<p>Subject:${data[y].subject}</p>`)
       $(popupBox).append(`<p>Text:${data[y].text}</p>`)
