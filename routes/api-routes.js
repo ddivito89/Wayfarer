@@ -34,6 +34,12 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/api/posts/:id", function(req, res) {
+    db.Post.findOne({where:{id:req.params.id}}).then(function(dbPost) {
+      res.json(dbPost);
+    });
+  });
+
   //AUTHENTICATION ROUTES!
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
