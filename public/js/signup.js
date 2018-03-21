@@ -34,6 +34,7 @@ $(document).ready(function() {
   }
 
   function handleLoginErr(err) {
+    alert('user already exists')
     $("#alert1.msg").text(err.responseJSON);
     $("#alert1").fadeIn(500);
   }
