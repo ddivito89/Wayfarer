@@ -9,6 +9,55 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: 'Map data &copy; OpenStreetMap contributors'
 }).addTo(map);
 
+// This uses the HTML5 geolocation API
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(function (position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+  });
+
+  // Once we've got a position, zoom and center the map on it, and add a single marker.
+  var currentMarker = L.AwesomeMarkers.icon({ icon: 'star', prefix: 'fa', markerColor: 'lightgray', });
+
+  function onLocationFound(e) {
+    // var radius = e.accuracy / 2;
+    L.marker(e.latlng, { icon: currentMarker, draggable: true }).addTo(map)
+      .bindPopup("You are here!")
+      .openPopup();
+    // L.circle(e.latlng, radius).addTo(map);
+
+    // function onLocationFound(e) {
+    //   var radius = e.accuracy / 2;
+    //   L.marker(e.latlng).addTo(map)
+    //     .bindPopup("You are within " + radius + " meters from this point").openPopup();
+    //   L.circle(e.latlng, radius).addTo(map);
+  }
+  map.on('locationfound', onLocationFound);
+} else {
+  alert("Geolocation API is not supported in your browser. :(");
+}
+
+// map.on('locationfound', function (e) {
+//   map.fitBounds(e.bounds);
+
+//   myLayer.setGeoJSON({
+//     type: 'Feature',
+//     geometry: {
+//       type: 'Point',
+//       coordinates: [e.latlng.lng, e.latlng.lat]
+//     },
+//     properties: {
+//       'title': 'Here I am!',
+//       'marker-color': '#ff8888',
+//       'marker-symbol': 'star'
+//     }
+//   });
+
+  // If the user chooses not to allow their location to be shared, display an error message.
+  // map.on('locationerror', function () {
+  //   geolocate.innerHTML = 'Position could not be found';
+  // });
+
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
 var popup = L.popup();
