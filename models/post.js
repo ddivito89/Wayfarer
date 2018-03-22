@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
-        len: [1, 45]
+        len: [1, 99]
       }
     },
     city: {
@@ -58,8 +58,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    freezeTableName: true, // Model tableName will be the same as the model name
-    timestamps: false
+    freezeTableName: true
   });
   return Post;
 };
