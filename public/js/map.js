@@ -24,10 +24,10 @@ function addMarker(e) {
   if (!pin) {
 
     var newMarker = new L.marker(e.latlng, {
-      icon: tempMarker, 
+      icon: tempMarker,
       draggable: true
     }).addTo(map);
-    
+
     var position = newMarker.getLatLng();
 
     var deleteBtn = $('<button>delete</button>').click(function() {
@@ -137,7 +137,7 @@ function populateOne(id) {
       $(popupBox).append(`<p>Text:${data.text}</p>`)
       $(popupBox).append(`<p>User_Id:${data.user_id}</p>`)
       marker.bindPopup(popupBox)
-    
+
 
   })
 }

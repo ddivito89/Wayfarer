@@ -22,34 +22,28 @@
 </head>
 
 <body>
-    <div id="sidebar" class="sidebar collapsed">
+    <div id="sidebar" class="sidebar">
         <!-- Nav tabs -->
         <div class="sidebar-tabs">
             <ul role="tablist">
+              <li>
+                  <a href="#profile" class="active" role="tab">
+                      <i class="fa fa-user"></i>
+                  </a>
+              </li>
                 <li>
                     <a href="#home" role="tab">
                         <i class="fa fa-bars"></i>
                     </a>
                 </li>
-                <li>
-                    <a href="#profile" role="tab">
-                        <i class="fa fa-user"></i>
-                    </a>
-                </li>
+
                 <li>
                     <a href="#messages" role="tab">
-                        <i class="fa fa-envelope"></i>
+                        <i class="fa fa-question"></i>
                     </a>
                 </li>
             </ul>
 
-            <ul role="tablist">
-                <li>
-                    <a href="#logout" role="tab">
-                        <i class="fa fa-sign-out"></i>
-                    </a>
-                </li>
-            </ul>
         </div>
 
         <!-- Tab panes -->
@@ -62,40 +56,10 @@
                     </span>
                 </h1>
 
-                <p>A responsive sidebar for mapping libraries like
-                    <a href="http://leafletjs.com/">Leaflet</a> or
-                    <a href="http://openlayers.org/">OpenLayers</a>.</p>
 
-                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-                    et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                    Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
-                    sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                    kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-                    et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                    Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
-                    sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                    kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-                    et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                    Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
-                    sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                    kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-                <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-                    et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                    Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
-                    sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                    kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
             </div>
 
-            <div class="sidebar-pane" id="profile">
+            <div class="sidebar-pane active" id="profile" >
                 <h1 class="sidebar-header">Profile
                     <span class="sidebar-close">
                         <i class="fa fa-caret-left"></i>
@@ -148,7 +112,7 @@
             </div>
 
             <div class="sidebar-pane" id="messages">
-                <h1 class="sidebar-header">Messages
+                <h1 class="sidebar-header">Help
                     <span class="sidebar-close">
                         <i class="fa fa-caret-left"></i>
                     </span>
