@@ -3,7 +3,7 @@ var passport = require("../config/passport");
 
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 
-module.exports = function(app) {
+module.exports = function(app, io) {
 
   app.get("/api/users", function(req, res) {
     db.User.findAll({}).then(function(dbUser) {
@@ -37,6 +37,7 @@ module.exports = function(app) {
     db.Post.create(req.body).then(function(dbPost) {
       // res.json(dbPost);
       res.json(dbPost);
+      io.emit('newPost',dbPost.id)
     });
   });
 
@@ -50,6 +51,7 @@ module.exports = function(app) {
     db.Post.findOne({where:{id:req.params.id}}).then(function(dbPost) {
       res.json(dbPost);
     });
+
   });
 
   //AUTHENTICATION ROUTES!
@@ -96,6 +98,16 @@ module.exports = function(app) {
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({email: req.user.email, id: req.user.id});
     }
+  });
+
+  io.on('connection', (socket) => {
+
+    console.log('New User Connected');
+
+    socket.on('disconnect', () => {
+      console.log('user was disconnected');
+    });
+
   });
 
 }
