@@ -1,33 +1,21 @@
 {
   "development": {
     "username": "root",
-<<<<<<< HEAD
-    "password": "root",
-=======
-    "password": "",
->>>>>>> filestack
+    "password": null,
     "database": "wayfarer",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-<<<<<<< HEAD
     "password": null,
-=======
-    "password": "",
->>>>>>> filestack
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-<<<<<<< HEAD
     "password": null,
-=======
-    "password": "",
->>>>>>> filestack
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
