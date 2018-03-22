@@ -15,6 +15,11 @@ var popup = L.popup();
 
 var pin = false
 
+<<<<<<< HEAD
+=======
+filepicker.setKey("Aq4cOkrFRwCSU00DF54uIz");
+
+>>>>>>> filestack
 var tempMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
 var userMarker = L.AwesomeMarkers.icon({ icon: 'comment', prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
 var otherMarker = L.AwesomeMarkers.icon({ icon: 'info', prefix: 'fa', markerColor: 'orange', iconColor: 'blue' });
@@ -35,15 +40,60 @@ function addMarker(e) {
       pin = false;
     })[0];
 
+<<<<<<< HEAD
+=======
+    var uploadBtn = $('<button>Upload</button>').click(function() {
+        filepicker.pick({
+        mimetype: 'image/*', /* Images only */
+        maxFiles: 3, /* Limits uploads to five at a time */
+        maxSize: 1024 * 1024 * 5, /* 5mb */
+        imageMax: [1500, 1500], /* 1500x1500px */
+        cropRatio: 1/1, /* Perfect squares */
+        services: ['*'] /* All available third-parties */
+        
+
+    }, function(blob){
+        // Returned Stuff
+        var filename = blob.filename;
+        var url = blob.url;
+        var id = blob.id;
+        var isWriteable = blob.isWriteable;
+        var mimetype = blob.mimetype;
+        var size = blob.size;
+        $('#post_url').attr('src',blob.url)
+        $('#post_url').attr("visibility", "visible")
+        $('#post_url').attr('height',"50px")
+        $('#post_url').attr('width',"50px")
+        // $(popupBox).append("<img style='width:50px; height:50px; ' src='" + url + "'id='post_url'>");
+
+        
+
+        
+        console.log(blob.url)
+
+        
+    });
+});
+
+>>>>>>> filestack
     var addPostBtn = $('<button>Post</button>').click(function() {
       var postSubject = $('#post_subject').val()
       var postText = $('#post_text').val()
       var position = newMarker.getLatLng();
+<<<<<<< HEAD
+=======
+      var postUrl = $('#post_url').attr("src")
+>>>>>>> filestack
       postData = {
         'subject': postSubject,
         'text': postText,
         'latitude': position.lat,
+<<<<<<< HEAD
         'longitude': position.lng
+=======
+        'longitude': position.lng,
+        'post_img': postUrl
+>>>>>>> filestack
       }
 
 
@@ -62,8 +112,11 @@ function addMarker(e) {
     if (currentUserId) {
     $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
     $(popupBox).append('<input placeholder="Text" type="textbox" id="post_text"><br>')
+    $(popupBox).append("<img style= 'width: 50px%'  id='post_url'>");
     $(popupBox).append(addPostBtn)
     $(popupBox).append(deleteBtn)
+    $(popupBox).append(uploadBtn)
+>>>>>>> filestack
   }else{
     $(popupBox).append('<p>please login to post</p>')
   }
@@ -108,6 +161,10 @@ function populateMap() {
       $(popupBox).append(`<p>Subject:${data[y].subject}</p>`)
       $(popupBox).append(`<p>Text:${data[y].text}</p>`)
       $(popupBox).append(`<p>User_Id:${data[y].user_id}</p>`)
+<<<<<<< HEAD
+=======
+      $(popupBox).append(`<img src=" ${data[y].post_img} "/>`);
+>>>>>>> filestack
       marker.bindPopup(popupBox)
     }
 
@@ -136,6 +193,10 @@ function populateOne(id) {
       $(popupBox).append(`<p>Subject:${data.subject}</p>`)
       $(popupBox).append(`<p>Text:${data.text}</p>`)
       $(popupBox).append(`<p>User_Id:${data.user_id}</p>`)
+<<<<<<< HEAD
+=======
+      $(popupBox).append(`<img src=" ${data.post_img} "/>`);
+>>>>>>> filestack
       marker.bindPopup(popupBox)
     
 
