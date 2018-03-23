@@ -27,7 +27,7 @@
 </head>
 
 <body>
-    <div id="sidebar" class="sidebar">
+    <div id="sidebar" class="sidebar collapsed">
         <!-- Nav tabs -->
         <div class="sidebar-tabs">
             <ul role="tablist">
@@ -73,47 +73,6 @@
                 <p class="member-name">
                     hi
                 </p>
-                <div class="col-md-6 col-md-offset-3" id="auth-sidebar">
-                  <div class="col-md-6 col-md-offset-3" id="loginForm-sidebar">
-                      <h3>Login</h3>
-                      <form class="login">
-                          <div class="form-group">
-                              <label class="form-spacing" for="exampleInputEmail1">Email address</label><br>
-                              <input type="email" class="form-control form-spacing" id="email-input" placeholder="Email">
-                          </div>
-                          <div class="form-group">
-                              <label class="form-spacing" for="exampleInputPassword1">Password</label><br>
-                              <input type="password" class="form-control form-spacing" id="password-input" placeholder="Password">
-                          </div>
-                          <br>
-                          <button type="submit" class="btn btn-default">Login</button>
-                          <br>
-                      </form>
-                      <p>or <a href="/" class="switch">sign up</a></p>
-                  </div>
-                  <div class="col-md-6 col-md-offset-3" id="signupForm-sidebar">
-                      <h3>Sign Up</h3>
-                      <form class="signup">
-                          <div class="form-group">
-                              <label class="form-spacing" for="exampleInputEmail1">Email address</label><br>
-                              <input type="email" class="form-control form-spacing" id="email-input1" placeholder="Email">
-                          </div>
-                          <div class="form-group">
-                              <label class="form-spacing" for="exampleInputPassword1">Password</label><br>
-                              <input type="password" class="form-control form-spacing" id="password-input1" placeholder="Password">
-                          </div>
-                          <div style="display: none" id="alert1" class="alert alert-danger" role="alert">
-                              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                              <span class="sr-only">Error:</span>
-                              <span class="msg"></span>
-                          </div>
-                          <br>
-                          <button type="submit" class="btn btn-default">Sign Up</button>
-                      </form>
-                      <p>or <a href="/" class="switch">log in</a></p>
-                  </div>
-                </div>
-
             </div>
 
             <div class="sidebar-pane" id="messages">
@@ -134,7 +93,56 @@
         </div>
     </div>
 
-    <div id="map" class="sidebar-map"></div>
+    <div id="map" class="sidebar-map">
+
+            <button id="modalBtn" class="button">Login</button>
+            <div id="simpleModal" class="modal">
+                <div class="modal-content">
+                    <span class="closeBtn" id="closeModalBtn">&times;</span>
+                        <div class="col-md-6 col-md-offset-3" id="auth-sidebar">
+                          <div class="col-md-6 col-md-offset-3" id="loginForm-sidebar">
+                              <h3>Login</h3>
+                              <form class="login">
+                                  <div class="form-group">
+                                      <label class="form-spacing" for="exampleInputEmail1">Email address</label><br>
+                                      <input type="email" class="form-control form-spacing" id="email-input" placeholder="Email">
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="form-spacing" for="exampleInputPassword1">Password</label><br>
+                                      <input type="password" class="form-control form-spacing" id="password-input" placeholder="Password">
+                                  </div>
+                                  <br>
+                                  <button type="submit" class="btn btn-default">Login</button>
+                                  <br>
+                              </form>
+                              <p>or <a href="/" class="switch">sign up</a></p>
+                          </div>
+                          <div class="col-md-6 col-md-offset-3" id="signupForm-sidebar">
+                              <h3>Sign Up</h3>
+                              <form class="signup">
+                                  <div class="form-group">
+                                      <label class="form-spacing" for="exampleInputEmail1">Email address</label><br>
+                                      <input type="email" class="form-control form-spacing" id="email-input1" placeholder="Email">
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="form-spacing" for="exampleInputPassword1">Password</label><br>
+                                      <input type="password" class="form-control form-spacing" id="password-input1" placeholder="Password">
+                                  </div>
+                                  <div style="display: none" id="alert1" class="alert alert-danger" role="alert">
+                                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                      <span class="sr-only">Error:</span>
+                                      <span class="msg"></span>
+                                  </div>
+                                  <br>
+                                  <button type="submit" class="btn btn-default">Sign Up</button>
+                              </form>
+                              <p>or <a href="/" class="switch">log in</a></p>
+                          </div>
+                        </div>
+                </div>
+            </div>
+    </div>
+
 
 
     <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
