@@ -1,0 +1,29 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+html, body, #map {
+    height: 100%;
+    font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.sidebar-body {
+  margin: 20px;
+}
+
+input {
+  width: 100%
+}
+
+.form-spacing {
+  padding: 10px 0 10px 0;
+  margin: 10px 0 10px 0;
+}
+<<<<<<< HEAD
+=======
+
+/*img {
+  width: 100%;
+}*/
+>>>>>>> filestack

@@ -1,37 +1,71 @@
-
+//Set up post table
 module.exports = function(sequelize, DataTypes) {
   var Post = sequelize.define("Post", {
     subject: {
       type: DataTypes.STRING,
-      unique: true,
+      allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        len: [1, 45]
       }
     },
     text: {
       type: DataTypes.STRING,
-      unique: true,
+      allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true
+        len: [1, 45]
       }
     },
     post_img: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [1, 99]
+      }
+    },
+    categories: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [1, 45]
+      }
     },
     city: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [1, 45]
+      }
     },
     country: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [1, 45]
+      }
     },
     latitude: {
-      type: DataTypes.DOUBLE
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [1, 45]
+      }
     },
     longitude: {
-      type: DataTypes.DOUBLE
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [1, 45]
+      }
     },
-  })
-return Post;
-}
+    user_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 45]
+      }
+    }
+  }, {
+    freezeTableName: true
+  });
+  return Post;
+};
