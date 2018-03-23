@@ -15,7 +15,7 @@ var popup = L.popup();
 
 
 
-filepicker.setKey("Aq4cOkrFRwCSU00DF54uIz");
+filepicker.setKey("AoSnY3QIcRpCQ9hwUd0W6z");
 
 var tempMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
 var userMarker = L.AwesomeMarkers.icon({icon: 'comment', prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
@@ -236,3 +236,26 @@ socket.on('newPost', (id) => {
     populateOne(id)
   }
 });
+
+//Get modal element
+var modal = document.getElementById('simpleModal');
+var modalBtn = document.getElementById('modalBtn');
+var closeBtn = document.getElementById('closeModalBtn');
+
+modalBtn.addEventListener('click', openModal);
+closeBtn.addEventListener('click', closeModal);
+window.addEventListener('click', clickOutside);
+
+function openModal (){
+  modal.style.display = 'block';
+}
+
+function closeModal (){
+  modal.style.display = 'none';
+}
+
+function clickOutside (e){
+  if (e.taget == modal) {
+    modal.style.display = 'none';  
+  }
+}
