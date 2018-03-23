@@ -15,7 +15,7 @@ var popup = L.popup();
 
 
 
-filepicker.setKey("Aq4cOkrFRwCSU00DF54uIz");
+filepicker.setKey("AoSnY3QIcRpCQ9hwUd0W6z");
 
 var tempMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
 var userMarker = L.AwesomeMarkers.icon({icon: 'comment', prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
