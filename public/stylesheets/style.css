@@ -20,10 +20,19 @@ input {
   padding: 10px 0 10px 0;
   margin: 10px 0 10px 0;
 }
-<<<<<<< HEAD
-=======
 
-/*img {
-  width: 100%;
-}*/
->>>>>>> filestack
+#reload_img {
+	width:150px;
+	height:150px;
+	border-radius: 15%;
+}
+
+#post_subject1 {
+	font-size:30px;
+	font-weight: bold;
+}
+
+input {
+    width: auto;
+    height:auto;
+}
