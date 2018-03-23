@@ -256,6 +256,6 @@ function closeModal (){
 
 function clickOutside (e){
   if (e.taget == modal) {
-    modal.style.display = 'none';  
+    modal.style.display = 'none';
   }
 }
