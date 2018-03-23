@@ -64,7 +64,7 @@ var popup = L.popup();
 
 
 
-filepicker.setKey("Aq4cOkrFRwCSU00DF54uIz");
+filepicker.setKey("AoSnY3QIcRpCQ9hwUd0W6z");
 
 var tempMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
 var userMarker = L.AwesomeMarkers.icon({icon: 'comment', prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
@@ -131,11 +131,13 @@ function addMarker(e) {
     var addPostBtn = $('<button>Post</button>').click(function() {
       var postSubject = $('#post_subject').val()
       var postText = $('#post_text').val()
+      var categories = $('#categories').val()
       var position = newMarker.getLatLng();
       var postUrl = $('#post_url').attr("src")
       postData = {
         'subject': postSubject,
         'text': postText,
+        'categories': categories,
         'latitude': position.lat,
         'longitude': position.lng,
         'post_img': postUrl
@@ -152,6 +154,18 @@ function addMarker(e) {
     var popupBox = document.createElement('div');
 
     if (currentUserId) {
+      $(popupBox).append(
+      '<select name="categories" id="categories">'+
+      '<option value = "">' +
+      'Select a category' +
+      '</option>' +
+    '<option value ="Food">' +
+    'Food'+'</option>'+
+    '<option value ="Sports">' +
+    'Sports'+'</option>'+
+    '<option value ="Drinks">' +
+    'Drinks'+'</option>'
+    )
       $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
       $(popupBox).append('<input placeholder="Text" type="textbox" id="post_text"><br>')
       $(popupBox).append("<img style= 'width: 50px%'  id='post_url'>");
@@ -200,6 +214,7 @@ function populateMap() {
       $(popupBox).attr('id', `post-${data[y].id}`)
       $(popupBox).append(`<p>Subject:${data[y].subject}</p>`)
       $(popupBox).append(`<p>Text:${data[y].text}</p>`)
+      $(popupBox).append(`<p>Category: ${data[y].categories}</p>`)
       $(popupBox).append(`<p>User_Id:${data[y].user_id}</p>`)
       $(popupBox).append(`<img src=" ${data[y].post_img} "/>`);
 
@@ -230,6 +245,7 @@ function populateOne(id) {
     $(popupBox).attr('id', `post-${data.id}`)
     $(popupBox).append(`<p>Subject:${data.subject}</p>`)
     $(popupBox).append(`<p>Text:${data.text}</p>`)
+    $(popupBox).append(`<p>Category:${data.categories}</p>`)
     $(popupBox).append(`<p>User_Id:${data.user_id}</p>`)
     $(popupBox).append(`<img src=" ${data.post_img} "/>`);
 
@@ -269,3 +285,26 @@ socket.on('newPost', (id) => {
     populateOne(id)
   }
 });
+
+//Get modal element
+var modal = document.getElementById('simpleModal');
+var modalBtn = document.getElementById('modalBtn');
+var closeBtn = document.getElementById('closeModalBtn');
+
+modalBtn.addEventListener('click', openModal);
+closeBtn.addEventListener('click', closeModal);
+window.addEventListener('click', clickOutside);
+
+function openModal (){
+  modal.style.display = 'block';
+}
+
+function closeModal (){
+  modal.style.display = 'none';
+}
+
+function clickOutside (e){
+  if (e.taget == modal) {
+    modal.style.display = 'none';
+  }
+}
