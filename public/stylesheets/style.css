@@ -62,6 +62,51 @@ input {
   top: 0;
   height: 100%;
   width: 100%;
+
+}
+
+
+/* Modal styling */
+#modalBtn{
+  position: absolute;
+  z-index: 9999;
+  padding: 1em 2em;
+  color: 074d9;
+  border: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+  background: #fff;
+}
+
+#modalBtn:hover{
+  background:#333;
+}
+
+#logOutBtn{
+  position: absolute;
+  z-index: 9999;
+  padding: 1em 2em;
+  color: 074d9;
+  border: 0;
+  right: 0;
+  margin-top: -20px;
+  margin-right: 10px;
+  background: #fff;
+}
+
+#logOutBtn:hover{
+  background:#333;
+}
+
+.modal{
+  display:none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.5)
 }
@@ -103,4 +148,3 @@ input {
   font-weight: bold;
   width:100%;
 }
-
