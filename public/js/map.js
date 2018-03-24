@@ -118,8 +118,11 @@ function addMarker(e) {
     'Drinks'+'</option>'
     )
       $(popupBox).append("<br>");
+      $(popupBox).append("<br>");
       $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
+      $(popupBox).append("<br>");
       $(popupBox).append('<input placeholder="Text" type="textbox" id="post_text"><br>')
+      $(popupBox).append("<br>");
       $(popupBox).append("<img style= 'width: 50px%'  id='post_url'>");
       $(popupBox).append("<br>");
       $(popupBox).append(addPostBtn)
@@ -128,6 +131,8 @@ function addMarker(e) {
     } else {
       $(popupBox).append('<p>please login to post</p>')
     }
+
+    newMarker.bindPopup(popupBox,  {maxWidth : 1000});
 
     newMarker.bindPopup(popupBox);
 
@@ -219,6 +224,12 @@ $(document).ready(function() {
   })
 
 })
+
+map.on('popupopen', function(e) {
+        var px = map.project(e.popup._latlng); // find the pixel location on the map where the popup anchor is
+        px.y -= e.popup._container.clientHeight/2 // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
+        map.panTo(map.unproject(px),{animate: true}); // pan to new center
+    });  
 
 //sockets
 
