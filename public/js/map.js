@@ -41,7 +41,7 @@ function addMarker(e) {
     map.removeLayer(newMarker)
   })[0];
 
-  var uploadBtn = $('<button>Upload</button>').click(function() {
+  var uploadBtn = $('<button>Upload A Photo</button>').click(function() {
     filepicker.pick({
       mimetype: 'image/*',
       /* Images only */
