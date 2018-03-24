@@ -159,6 +159,29 @@ function populateMap() {
       var lat = data[y].latitude
       var lon = data[y].longitude
 
+      var icon = data[y].categories;
+
+      if (icon === 'Food') {
+        icon = 'cutlery';
+        console.log(icon);
+      }
+      if (icon === 'Sports') {
+        icon = 'futbol-o';
+        console.log(icon);
+
+      }
+      if (icon === 'Drinks') {
+        icon = 'glass';
+        console.log(icon);
+
+      }  
+
+      var userMarker = L.AwesomeMarkers.icon({ icon: icon, prefix: 'fa', markerColor: 'green', iconColor: 'yellow' });
+      var otherMarker = L.AwesomeMarkers.icon({ icon: icon, prefix: 'fa', markerColor: 'orange', iconColor: 'blue' });
+      console.log(userMarker);
+      
+
+
       if (data[y].user_id - currentUserId === 0) {
         var marker = L.marker([
           lat, lon
