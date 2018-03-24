@@ -13,6 +13,7 @@ $(document).ready(function() {
     };
 
     if (!userData.email || !userData.password) {
+      alert("Please enter all fields")
       return;
     }
 
