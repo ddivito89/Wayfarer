@@ -129,7 +129,7 @@ function addMarker(e) {
       $(popupBox).append(deleteBtn)
       $(popupBox).append(uploadBtn)
     } else {
-      $(popupBox).append('<p>please login to post</p>')
+      $(popupBox).append('<p>Please' + " " +'<a href="#" onclick="openModal()">login</a>' + " " +'to post</p>')
     }
 
     newMarker.bindPopup(popupBox,  {maxWidth : 1000});
