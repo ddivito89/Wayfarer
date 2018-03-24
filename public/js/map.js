@@ -2,7 +2,7 @@ var map = L.map('map');
 map.setView([
   41.8914, -87.6377
 ], 15);
-map.locate({setView: true, maxZoom: 15});
+// map.locate({setView: true, maxZoom: 15});
 map.doubleClickZoom.disable();
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18,
@@ -13,7 +13,7 @@ var sidebar = L.control.sidebar('sidebar').addTo(map);
 
 var popup = L.popup();
 
-filepicker.setKey("AoSnY3QIcRpCQ9hwUd0W6z");
+filepicker.setKey("A9QIMpcVMSCiUoRg9k8Izz");
 
 var tempMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
 var userMarker = L.AwesomeMarkers.icon({icon: 'comment', prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
@@ -41,7 +41,7 @@ function addMarker(e) {
     map.removeLayer(newMarker)
   })[0];
 
-  var uploadBtn = $('<button>Upload</button>').click(function() {
+  var uploadBtn = $('<button>Upload A Photo</button>').click(function() {
     filepicker.pick({
       mimetype: 'image/*',
       /* Images only */
@@ -102,7 +102,7 @@ function addMarker(e) {
   var popupBox = document.createElement('div');
 
   if (currentUserId) {
-    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "">' + 'Select a category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
+    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "None">' + 'No category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
     $(popupBox).append("<br>");
     $(popupBox).append("<br>");
     $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
@@ -144,7 +144,7 @@ function addMarker(e) {
   var popupBox = document.createElement('div');
 
   if (currentUserId) {
-    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "">' + 'Select a category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
+    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "none">' + 'No category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
     $(popupBox).append("<br>");
     $(popupBox).append("<br>");
     $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
@@ -222,11 +222,12 @@ function populateMap() {
         ], {icon: otherMarker}).addTo(map);
       }
       var popupBox = document.createElement('div');
+
       $(popupBox).attr('id', `post-${data[y].id}`)
+      $(popupBox).append(`<p>User${data[y].user_id}  ${moment(new Date(data[y].createdAt)).format("MM/DD/YYYY, hh:mm A")}</p>`)
       $(popupBox).append(`<p id="post_subject1">${data[y].subject}</p>`)
       $(popupBox).append(`<p id="post_text">${data[y].text}</p>`)
       $(popupBox).append(`<p>Category: ${data[y].categories}</p>`)
-      $(popupBox).append(`<p>User${data[y].user_id}</p>`)
       $(popupBox).append(`<img id="reload_img" src=" ${data[y].post_img} "/>`);
 
       if (currentUserId) {
@@ -246,7 +247,6 @@ function populateMap() {
             data: commentData
           }).then(function(data) {
             console.log(data)
-
           });
         });
 
@@ -259,7 +259,8 @@ function populateMap() {
 
       marker.bindPopup(popupBox, {
         maxWidth: 560,
-        maxHeight: 400,
+        minWidth:350,
+        maxHeight: 550,
         overflowY: scroll
       });
 
@@ -306,10 +307,10 @@ function populateOne(id) {
     }
     var popupBox = document.createElement('div');
     $(popupBox).attr('id', `post-${data.id}`)
+    $(popupBox).append(`<p>User${data.user_id}  ${moment(new Date(data.createdAt)).format("MM/DD/YYYY, hh:mm A")}</p>`)
     $(popupBox).append(`<p id="post_subject1">${data.subject}</p>`)
     $(popupBox).append(`<p id="post_text">${data.text}</p>`)
     $(popupBox).append(`<p>Category:${data.categories}</p>`)
-    $(popupBox).append(`<p>User${data.user_id}</p>`)
     $(popupBox).append(`<img id="reload_img" src=" ${data.post_img} "/>`);
     if( currentUserId){
     $(popupBox).append(`<input placeholder="add a comment" type="textbox" id='newComment-${data.id}' class="commentBox"><br>`)
@@ -337,7 +338,12 @@ function populateOne(id) {
   }
     $(popupBox).append(`<div id='comments-${data.id}' class='comments'></div>`)
 
-    marker.bindPopup(popupBox, {maxWidth: 560});
+    marker.bindPopup(popupBox, {
+        maxWidth: 560,
+        minWidth:350,
+        maxHeight: 550,
+        overflowY: scroll
+      });
 
   })
 }
@@ -345,7 +351,7 @@ function populateOne(id) {
 //render comments
 function populateOneComment(comment) {
 
-  var newComment = (`<p>user${comment.user_id}: ${comment.text}</p>`)
+  var newComment = (`<p style="font-weight:bold">User${comment.user_id}  ${moment(new Date(comment.createdAt)).format("MM/DD/YYYY, hh:mm A")}:</p><p> ${comment.text}</p>`)
   $(`#comments-${comment.post_id}`).prepend(newComment)
   $(`#newComment-${comment.post_id}`).val('')
 
@@ -359,7 +365,7 @@ function populateComments() {
     console.log(data)
     for (var y = 0; y < data.length; y++) {
       var comment = data[y]
-      var newComment = (`<p>user${comment.user_id}: ${comment.text}</p>`)
+      var newComment = (`<p style="font-weight:bold">User${comment.user_id}  ${moment(new Date(comment.createdAt)).format("MM/DD/YYYY, hh:mm A")}:</p><p> ${comment.text}</p>`)
       $(`#comments-${comment.post_id}`).prepend(newComment)
       $(`#newComment-${comment.post_id}`).val('')
     }
