@@ -23,6 +23,7 @@ module.exports = function(app, io) {
     console.log(req.body);
     db.comments.create(req.body).then(function(dbComment) {
       res.json(dbComment);
+      io.emit('newComment',dbComment)
     });
   });
 

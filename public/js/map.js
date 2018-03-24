@@ -115,77 +115,63 @@ function addMarker(e) {
     $(popupBox).append(deleteBtn)
     $(popupBox).append(uploadBtn)
   } else {
-    $(popupBox).append('<p>please login to post</p>')
+    $(popupBox).append('<p>Please' + " " + '<a href="#" onclick="openModal()">login</a>' + " " + 'to post</p>')
   }
 
-
-    var addPostBtn = $('<button>Post</button>').click(function() {
-      var postSubject = $('#post_subject').val()
-      var postText = $('#post_text').val()
-      var categories = $('#categories').val()
-      var position = newMarker.getLatLng();
-      var postUrl = $('#post_url').attr("src")
-      postData = {
-        'subject': postSubject,
-        'text': postText,
-        'categories': categories,
-        'latitude': position.lat,
-        'longitude': position.lng,
-        'post_img': postUrl
-      }
-
-      $.post("/api/posts", postData).then(function(data) {
-        console.log(data)
-        map.closePopup();
-        newMarker.dragging.disable()
-        map.removeLayer(newMarker)
-      });
-    })[0];
-
-    var popupBox = document.createElement('div');
-
-    if (currentUserId) {
-      $(popupBox).append(
-      '<select name="categories" id="categories">'+
-      '<option value = "">' +
-      'Select a category' +
-      '</option>' +
-    '<option value ="Food">' +
-    'Food'+'</option>'+
-    '<option value ="Sports">' +
-    'Sports'+'</option>'+
-    '<option value ="Drinks">' +
-    'Drinks'+'</option>'
-    )
-      $(popupBox).append("<br>");
-      $(popupBox).append("<br>");
-      $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
-      $(popupBox).append("<br>");
-      $(popupBox).append('<input placeholder="Text" type="textbox" id="post_text"><br>')
-      $(popupBox).append("<br>");
-      $(popupBox).append("<img style= 'width: 50px%'  id='post_url'>");
-      $(popupBox).append("<br>");
-      $(popupBox).append(addPostBtn)
-      $(popupBox).append(deleteBtn)
-      $(popupBox).append(uploadBtn)
-    } else {
-      $(popupBox).append('<p>Please' + " " +'<a href="#" onclick="openModal()">login</a>' + " " +'to post</p>')
+  var addPostBtn = $('<button>Post</button>').click(function() {
+    var postSubject = $('#post_subject').val()
+    var postText = $('#post_text').val()
+    var categories = $('#categories').val()
+    var position = newMarker.getLatLng();
+    var postUrl = $('#post_url').attr("src")
+    postData = {
+      'subject': postSubject,
+      'text': postText,
+      'categories': categories,
+      'latitude': position.lat,
+      'longitude': position.lng,
+      'post_img': postUrl
     }
 
-    newMarker.bindPopup(popupBox,  {maxWidth : 1000});
-
-    newMarker.bindPopup(popupBox);
-
-
-    newMarker.on('dragend', function(event) {
-      var marker = event.target;
-      var position = marker.getLatLng();
-      marker.setLatLng(new L.LatLng(position.lat, position.lng), {draggable: 'true'});
-      map.panTo(new L.LatLng(position.lat, position.lng))
-      console.log("drag pin pos:" + position);
+    $.post("/api/posts", postData).then(function(data) {
+      console.log(data)
+      map.closePopup();
+      newMarker.dragging.disable()
+      map.removeLayer(newMarker)
     });
+  })[0];
+
+  var popupBox = document.createElement('div');
+
+  if (currentUserId) {
+    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "">' + 'Select a category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
+    $(popupBox).append("<br>");
+    $(popupBox).append("<br>");
+    $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
+    $(popupBox).append("<br>");
+    $(popupBox).append('<input placeholder="Text" type="textbox" id="post_text"><br>')
+    $(popupBox).append("<br>");
+    $(popupBox).append("<img style= 'width: 50px%'  id='post_url'>");
+    $(popupBox).append("<br>");
+    $(popupBox).append(addPostBtn)
+    $(popupBox).append(deleteBtn)
+    $(popupBox).append(uploadBtn)
+  } else {
+    $(popupBox).append('<p>Please' + " " + '<a href="#" onclick="openModal()">login</a>' + " " + 'to post</p>')
+  }
+
   newMarker.bindPopup(popupBox, {maxWidth: 1000});
 
+  newMarker.bindPopup(popupBox);
+
+  newMarker.on('dragend', function(event) {
+    var marker = event.target;
+    var position = marker.getLatLng();
+    marker.setLatLng(new L.LatLng(position.lat, position.lng), {draggable: 'true'});
+    map.panTo(new L.LatLng(position.lat, position.lng))
+    console.log("drag pin pos:" + position);
+  });
+  newMarker.bindPopup(popupBox, {maxWidth: 1000});
 
   newMarker.on('dragend', function(event) {
     var marker = event.target;
@@ -223,8 +209,8 @@ function populateMap() {
         console.log(icon);
       }
 
-      var userMarker = L.AwesomeMarkers.icon({ icon: icon, prefix: 'fa', markerColor: 'green', iconColor: 'yellow' });
-      var otherMarker = L.AwesomeMarkers.icon({ icon: icon, prefix: 'fa', markerColor: 'orange', iconColor: 'blue' });
+      var userMarker = L.AwesomeMarkers.icon({icon: icon, prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
+      var otherMarker = L.AwesomeMarkers.icon({icon: icon, prefix: 'fa', markerColor: 'orange', iconColor: 'blue'});
 
       if (data[y].user_id - currentUserId === 0) {
         var marker = L.marker([
@@ -242,39 +228,46 @@ function populateMap() {
       $(popupBox).append(`<p>Category: ${data[y].categories}</p>`)
       $(popupBox).append(`<p>User${data[y].user_id}</p>`)
       $(popupBox).append(`<img id="reload_img" src=" ${data[y].post_img} "/>`);
-      $(popupBox).append(`<input placeholder="add a comment" type="textbox" id='newComment-${data[y].id}' class="commentBox"><br>`)
 
-      var commentBtn = $(`<button class="comment-button" id='${data[y].id}-button'>Post</button>`).click(function() {
-        console.log('click')
-        var post_id = $(this).attr('id').split("-")[0]
-        var text = $(`#newComment-${post_id}`).val()
+      if (currentUserId) {
+        $(popupBox).append(`<input placeholder="add a comment" type="textbox" id='newComment-${data[y].id}' class="commentBox"><br>`)
 
-        var commentData = {
-          'post_id': post_id,
-          'text': text
-        }
+        var commentBtn = $(`<button class="comment-button" id='${data[y].id}-button'>Post</button>`).click(function() {
+          var post_id = $(this).attr('id').split("-")[0]
+          var text = $(`#newComment-${post_id}`).val()
 
-        $.ajax("/api/comments/", {
-          type: "POST",
-          data: commentData
-        }).then(function(data) {
-          console.log(data)
-          populateOneComment(data)
+          var commentData = {
+            'post_id': post_id,
+            'text': text
+          }
+
+          $.ajax("/api/comments/", {
+            type: "POST",
+            data: commentData
+          }).then(function(data) {
+            console.log(data)
+
+          });
         });
-      });
 
-      $(popupBox).append(commentBtn)
+        $(popupBox).append(commentBtn)
+
+      } else {
+        $(popupBox).append('<p>Please' + " " + '<a href="#" onclick="openModal()">login</a>' + " " + 'to comment</p>')
+      }
       $(popupBox).append(`<div id='comments-${data[y].id}' class='comments'></div>`)
 
-      marker.bindPopup(popupBox, {maxWidth: 560, maxHeight:400, overflowY:scroll});
+      marker.bindPopup(popupBox, {
+        maxWidth: 560,
+        maxHeight: 400,
+        overflowY: scroll
+      });
 
     };
 
   })
 
 }
-
-
 
 //render posts
 function populateOne(id) {
@@ -299,8 +292,8 @@ function populateOne(id) {
       console.log(icon);
     }
 
-    var userMarker = L.AwesomeMarkers.icon({ icon: icon, prefix: 'fa', markerColor: 'green', iconColor: 'yellow' });
-    var otherMarker = L.AwesomeMarkers.icon({ icon: icon, prefix: 'fa', markerColor: 'orange', iconColor: 'blue' });
+    var userMarker = L.AwesomeMarkers.icon({icon: icon, prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
+    var otherMarker = L.AwesomeMarkers.icon({icon: icon, prefix: 'fa', markerColor: 'orange', iconColor: 'blue'});
 
     if (data.user_id - currentUserId === 0) {
       var marker = L.marker([
@@ -318,6 +311,7 @@ function populateOne(id) {
     $(popupBox).append(`<p>Category:${data.categories}</p>`)
     $(popupBox).append(`<p>User${data.user_id}</p>`)
     $(popupBox).append(`<img id="reload_img" src=" ${data.post_img} "/>`);
+    if( currentUserId){
     $(popupBox).append(`<input placeholder="add a comment" type="textbox" id='newComment-${data.id}' class="commentBox"><br>`)
     var commentBtn = $(`<button class="comment-button" id='${data.id}-button'>Post</button>`).click(function() {
       console.log('click')
@@ -339,8 +333,10 @@ function populateOne(id) {
     });
 
     $(popupBox).append(commentBtn)
+  } else {
+    $(popupBox).append('<p>Please' + " " +'<a href="#" onclick="openModal()">login</a>' + " " +'to comment</p>')
+  }
     $(popupBox).append(`<div id='comments-${data.id}' class='comments'></div>`)
-
 
     marker.bindPopup(popupBox, {maxWidth: 560});
 
@@ -371,7 +367,6 @@ function populateComments() {
   })
 }
 
-
 //on page load
 $(document).ready(function() {
   $.get("/api/user_data").then(function(data1) {
@@ -391,9 +386,6 @@ map.on('popupopen', function(e) {
   populateComments()
 });
 
-
-
-
 //sockets
 
 var socket = io();
@@ -410,6 +402,22 @@ socket.on('newPost', (id) => {
   if (id > 0) {
     console.log('now post id: ' + id);
     populateOne(id)
+  }
+
+});
+
+socket.on('newPost', (id) => {
+  if (id > 0) {
+    console.log('new post id: ' + id);
+    populateOne(id)
+  }
+
+});
+
+socket.on('newComment', (data) => {
+  if (data.post_id > 0) {
+    console.log('now comment id: ' + data.post_id);
+    populateOneComment(data)
   }
 
 });
