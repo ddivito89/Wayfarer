@@ -259,7 +259,8 @@ function populateMap() {
 
       marker.bindPopup(popupBox, {
         maxWidth: 560,
-        maxHeight: 400,
+        minWidth:350,
+        maxHeight: 550,
         overflowY: scroll
       });
 
@@ -337,7 +338,12 @@ function populateOne(id) {
   }
     $(popupBox).append(`<div id='comments-${data.id}' class='comments'></div>`)
 
-    marker.bindPopup(popupBox, {maxWidth: 560});
+    marker.bindPopup(popupBox, {
+        maxWidth: 560,
+        minWidth:350,
+        maxHeight: 550,
+        overflowY: scroll
+      });
 
   })
 }

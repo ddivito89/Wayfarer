@@ -8,12 +8,15 @@ $(document).ready(function() {
       $("#auth-sidebar").show()
       $("#signupForm-sidebar").hide()
       $("#loginForm-sidebar").show()
+      $("#profile-pic").hide()
     } else {
       $(".member-name").empty()
       $(".member-name").text('logged in as ' + data.email);
       $(".sidebar-map").append('<br><br><a href="/logout" id="logOutBtn" style="text-decoration:none">Log Out</a>')
       $("#modalBtn").hide()
       $("#auth-sidebar").hide()
+      $("#profile-pic").show()
+      
     }
   });
 
