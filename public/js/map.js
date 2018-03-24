@@ -13,7 +13,7 @@ var sidebar = L.control.sidebar('sidebar').addTo(map);
 
 var popup = L.popup();
 
-filepicker.setKey("AoSnY3QIcRpCQ9hwUd0W6z");
+filepicker.setKey("A9QIMpcVMSCiUoRg9k8Izz");
 
 var tempMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
 var userMarker = L.AwesomeMarkers.icon({icon: 'comment', prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
