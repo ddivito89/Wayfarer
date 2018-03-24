@@ -102,7 +102,7 @@ function addMarker(e) {
   var popupBox = document.createElement('div');
 
   if (currentUserId) {
-    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "">' + 'Select a category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
+    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "None">' + 'No category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
     $(popupBox).append("<br>");
     $(popupBox).append("<br>");
     $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
@@ -144,7 +144,7 @@ function addMarker(e) {
   var popupBox = document.createElement('div');
 
   if (currentUserId) {
-    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "">' + 'Select a category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
+    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "none">' + 'No category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
     $(popupBox).append("<br>");
     $(popupBox).append("<br>");
     $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
@@ -307,7 +307,7 @@ function populateOne(id) {
     }
     var popupBox = document.createElement('div');
     $(popupBox).attr('id', `post-${data.id}`)
-    $(popupBox).append(`<p>User${data[y].user_id}  ${moment(new Date(data.createdAt)).format("MM/DD/YYYY, hh:mm A")}</p>`)
+    $(popupBox).append(`<p>User${data.user_id}  ${moment(new Date(data.createdAt)).format("MM/DD/YYYY, hh:mm A")}</p>`)
     $(popupBox).append(`<p id="post_subject1">${data.subject}</p>`)
     $(popupBox).append(`<p id="post_text">${data.text}</p>`)
     $(popupBox).append(`<p>Category:${data.categories}</p>`)
