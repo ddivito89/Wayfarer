@@ -18,13 +18,16 @@ module.exports = function(app, io) {
   });
 
   app.post("/api/comments", function(req, res) {
-    db.comments.create(req.body).then(function(dbUser) {
+    console.log(req.body);
+    req.body.user_id = req.user.id;
+    console.log(req.body);
+    db.comments.create(req.body).then(function(dbComment) {
       res.json(dbComment);
     });
   });
 
-  app.get("/api/comments/:userId/:postId", function(req, res) {
-    db.comments.findAll({where:{user_id:req.params.userId, post_id:req.params.postId}}).then(function(dbComment) {
+  app.get("/api/comments/", function(req, res) {
+    db.comments.findAll({}).then(function(dbComment) {
       res.json(dbComment);
     });
   });
