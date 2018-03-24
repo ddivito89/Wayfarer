@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS wayfarer;
+
+CREATE DATABASE wayfarer;
