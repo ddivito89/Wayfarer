@@ -9,107 +9,71 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: 'Map data &copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// This uses the HTML5 geolocation API
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function (position) {
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-  });
+// var currentMarker = L.AwesomeMarkers.icon({ icon: 'star', prefix: 'fa', markerColor: 'lightgray' });
 
-  // Once we've got a position, zoom and center the map on it, and add a single marker.
-  var currentMarker = L.AwesomeMarkers.icon({ icon: 'star', prefix: 'fa', markerColor: 'lightgray', });
+// function onLocationFound(e) {
+//   var location = e.latlng
+//   L.marker(location, {icon: currentMarker, draggable: true}).addTo(map)
+// }
 
-  function onLocationFound(e) {
-    // var radius = e.accuracy / 2;
-    L.marker(e.latlng, { icon: currentMarker, draggable: true }).addTo(map)
-      .bindPopup("You are here!")
-      .openPopup();
-    // L.circle(e.latlng, radius).addTo(map);
+// function onLocationError(e) {
+//   alert(e.message);
+// }
 
-    // function onLocationFound(e) {
-    //   var radius = e.accuracy / 2;
-    //   L.marker(e.latlng).addTo(map)
-    //     .bindPopup("You are within " + radius + " meters from this point").openPopup();
-    //   L.circle(e.latlng, radius).addTo(map);
-  }
-  map.on('locationfound', onLocationFound);
-} else {
-  alert("Geolocation API is not supported in your browser. :(");
-}
+// function getLocationLeaflet() {
+//   map.on('locationfound', onLocationFound);
+//   map.on('locationerror', onLocationError);
 
-// map.on('locationfound', function (e) {
-//   map.fitBounds(e.bounds);
+//   map.locate({ setView: true, maxZoom: 16 });
+// }
 
-//   myLayer.setGeoJSON({
-//     type: 'Feature',
-//     geometry: {
-//       type: 'Point',
-//       coordinates: [e.latlng.lng, e.latlng.lat]
-//     },
-//     properties: {
-//       'title': 'Here I am!',
-//       'marker-color': '#ff8888',
-//       'marker-symbol': 'star'
-//     }
-//   });
+// getLocationLeaflet();
 
-  // If the user chooses not to allow their location to be shared, display an error message.
-  // map.on('locationerror', function () {
-  //   geolocate.innerHTML = 'Position could not be found';
-  // });
+// $("currentMarker").click(function () {
+//   addMarker(e);
+//   map.removeLayer(currentMarker);
+// };  
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
 var popup = L.popup();
 
+var pin = false
 
 
-filepicker.setKey("AoSnY3QIcRpCQ9hwUd0W6z");
+filepicker.setKey("Aq4cOkrFRwCSU00DF54uIz");
 
-var tempMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
-var userMarker = L.AwesomeMarkers.icon({icon: 'comment', prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
-var otherMarker = L.AwesomeMarkers.icon({icon: 'info', prefix: 'fa', markerColor: 'orange', iconColor: 'blue'});
-
-var newMarker = {}
+var tempMarker = L.AwesomeMarkers.icon({ icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true });
+var userMarker = L.AwesomeMarkers.icon({ icon: 'comment', prefix: 'fa', markerColor: 'green', iconColor: 'yellow' });
+var otherMarker = L.AwesomeMarkers.icon({ icon: 'info', prefix: 'fa', markerColor: 'orange', iconColor: 'blue' });
 
 function addMarker(e) {
-
-  if (newMarker != undefined) {
-           map.removeLayer(newMarker);
-     };
   // Add marker to map at click location; add popup window
+  if (!pin) {
 
-    newMarker = new L.marker(e.latlng, {
+    var newMarker = new L.marker(e.latlng, {
       icon: tempMarker,
       draggable: true
     }).addTo(map);
 
-
-    console.log(newMarker)
-
     var position = newMarker.getLatLng();
 
-    var deleteBtn = $('<button>delete</button>').click(function() {
+    var deleteBtn = $('<button>delete</button>').click(function () {
       map.removeLayer(newMarker)
+      pin = false;
     })[0];
 
-    var uploadBtn = $('<button>Upload</button>').click(function() {
+    var uploadBtn = $('<button>Upload</button>').click(function () {
       filepicker.pick({
-        mimetype: 'image/*',
-        /* Images only */
-        maxFiles: 3,
-        /* Limits uploads to five at a time */
-        maxSize: 1024 * 1024 * 5,
-        /* 5mb */
-        imageMax: [
-          1500, 1500
-        ],
-        /* 1500x1500px */
-        cropRatio: 1 / 1,
-        /* Perfect squares */
-        services: ['*']/* All available third-parties */
+        mimetype: 'image/*', /* Images only */
+        maxFiles: 3, /* Limits uploads to five at a time */
+        maxSize: 1024 * 1024 * 5, /* 5mb */
+        imageMax: [1500, 1500], /* 1500x1500px */
+        cropRatio: 1 / 1, /* Perfect squares */
+        services: ['*'] /* All available third-parties */
 
-      }, function(blob) {
+
+      }, function (blob) {
         // Returned Stuff
         var filename = blob.filename;
         var url = blob.url;
@@ -123,30 +87,36 @@ function addMarker(e) {
         $('#post_url').attr('width', "50px")
         // $(popupBox).append("<img style='width:50px; height:50px; ' src='" + url + "'id='post_url'>");
 
+
+
+
         console.log(blob.url)
+
 
       });
     });
 
-    var addPostBtn = $('<button>Post</button>').click(function() {
+
+    var addPostBtn = $('<button>Post</button>').click(function () {
       var postSubject = $('#post_subject').val()
       var postText = $('#post_text').val()
-      var categories = $('#categories').val()
       var position = newMarker.getLatLng();
       var postUrl = $('#post_url').attr("src")
       postData = {
         'subject': postSubject,
         'text': postText,
-        'categories': categories,
         'latitude': position.lat,
         'longitude': position.lng,
         'post_img': postUrl
       }
 
-      $.post("/api/posts", postData).then(function(data) {
+
+      $.post("/api/posts", postData).then(function (data) {
+        pin = false
         console.log(data)
         map.closePopup();
         newMarker.dragging.disable()
+        populateOne(data.id)
         map.removeLayer(newMarker)
       });
     })[0];
@@ -154,18 +124,6 @@ function addMarker(e) {
     var popupBox = document.createElement('div');
 
     if (currentUserId) {
-      $(popupBox).append(
-      '<select name="categories" id="categories">'+
-      '<option value = "">' +
-      'Select a category' +
-      '</option>' +
-    '<option value ="Food">' +
-    'Food'+'</option>'+
-    '<option value ="Sports">' +
-    'Sports'+'</option>'+
-    '<option value ="Drinks">' +
-    'Drinks'+'</option>'
-    )
       $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
       $(popupBox).append('<input placeholder="Text" type="textbox" id="post_text"><br>')
       $(popupBox).append("<img style= 'width: 50px%'  id='post_url'>");
@@ -178,16 +136,17 @@ function addMarker(e) {
 
     newMarker.bindPopup(popupBox);
 
+    pin = true;
 
-    newMarker.on('dragend', function(event) {
+    newMarker.on('dragend', function (event) {
       var marker = event.target;
       var position = marker.getLatLng();
-      marker.setLatLng(new L.LatLng(position.lat, position.lng), {draggable: 'true'});
+      marker.setLatLng(new L.LatLng(position.lat, position.lng), { draggable: 'true' });
       map.panTo(new L.LatLng(position.lat, position.lng))
       console.log("drag pin pos:" + position);
     });
 
-
+  }
 };
 
 map.on('dblclick', addMarker);
@@ -195,7 +154,7 @@ map.on('dblclick', addMarker);
 // Populate all postSubject
 function populateMap() {
 
-  $.get("/api/posts", function(data) {
+  $.get("/api/posts", function (data) {
 
     for (var y = 0; y < data.length; y++) {
       var lat = data[y].latitude
@@ -204,17 +163,16 @@ function populateMap() {
       if (data[y].user_id - currentUserId === 0) {
         var marker = L.marker([
           lat, lon
-        ], {icon: userMarker}).addTo(map);
+        ], { icon: userMarker }).addTo(map);
       } else {
         var marker = L.marker([
           lat, lon
-        ], {icon: otherMarker}).addTo(map);
+        ], { icon: otherMarker }).addTo(map);
       }
       var popupBox = document.createElement('div');
       $(popupBox).attr('id', `post-${data[y].id}`)
       $(popupBox).append(`<p>Subject:${data[y].subject}</p>`)
       $(popupBox).append(`<p>Text:${data[y].text}</p>`)
-      $(popupBox).append(`<p>Category: ${data[y].categories}</p>`)
       $(popupBox).append(`<p>User_Id:${data[y].user_id}</p>`)
       $(popupBox).append(`<img src=" ${data[y].post_img} "/>`);
 
@@ -227,7 +185,7 @@ function populateMap() {
 
 function populateOne(id) {
 
-  $.get(`/api/posts/${id}`, function(data) {
+  $.get(`/api/posts/${id}`, function (data) {
 
     var lat = data.latitude
     var lon = data.longitude
@@ -235,27 +193,27 @@ function populateOne(id) {
     if (data.user_id - currentUserId === 0) {
       var marker = L.marker([
         lat, lon
-      ], {icon: userMarker}).addTo(map);
+      ], { icon: userMarker }).addTo(map);
     } else {
       var marker = L.marker([
         lat, lon
-      ], {icon: otherMarker}).addTo(map);
+      ], { icon: otherMarker }).addTo(map);
     }
     var popupBox = document.createElement('div');
     $(popupBox).attr('id', `post-${data.id}`)
     $(popupBox).append(`<p>Subject:${data.subject}</p>`)
     $(popupBox).append(`<p>Text:${data.text}</p>`)
-    $(popupBox).append(`<p>Category:${data.categories}</p>`)
     $(popupBox).append(`<p>User_Id:${data.user_id}</p>`)
     $(popupBox).append(`<img src=" ${data.post_img} "/>`);
 
     marker.bindPopup(popupBox)
 
+
   })
 }
 
-$(document).ready(function() {
-  $.get("/api/user_data").then(function(data1) {
+$(document).ready(function () {
+  $.get("/api/user_data").then(function (data1) {
     currentUserId = ''
     if (data1.id) {
       currentUserId = data1.id
@@ -266,45 +224,3 @@ $(document).ready(function() {
   })
 
 })
-
-//sockets
-
-var socket = io();
-
-socket.on('connect', () => {
-  console.log('connected to server');
-});
-
-socket.on('disconnect', () => {
-  console.log('disconnected from server');
-});
-
-socket.on('newPost', (id) => {
-  if(id>0){
-    console.log('now post id: '+id);
-    populateOne(id)
-  }
-});
-
-//Get modal element
-var modal = document.getElementById('simpleModal');
-var modalBtn = document.getElementById('modalBtn');
-var closeBtn = document.getElementById('closeModalBtn');
-
-modalBtn.addEventListener('click', openModal);
-closeBtn.addEventListener('click', closeModal);
-window.addEventListener('click', clickOutside);
-
-function openModal (){
-  modal.style.display = 'block';
-}
-
-function closeModal (){
-  modal.style.display = 'none';
-}
-
-function clickOutside (e){
-  if (e.taget == modal) {
-    modal.style.display = 'none';
-  }
-}
