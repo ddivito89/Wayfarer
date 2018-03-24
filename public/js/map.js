@@ -13,12 +13,12 @@ var sidebar = L.control.sidebar('sidebar').addTo(map);
 
 var popup = L.popup();
 
-
+var categoryIcon;
 
 filepicker.setKey("AoSnY3QIcRpCQ9hwUd0W6z");
 
 var tempMarker = L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin: true});
-var userMarker = L.AwesomeMarkers.icon({icon: 'comment', prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
+var userMarker = L.AwesomeMarkers.icon({icon: categoryIcon, prefix: 'fa', markerColor: 'green', iconColor: 'yellow'});
 var otherMarker = L.AwesomeMarkers.icon({icon: 'info', prefix: 'fa', markerColor: 'orange', iconColor: 'blue'});
 
 var newMarker = {}
@@ -110,7 +110,7 @@ function addMarker(e) {
       '<option value = "">' +
       'Select a category' +
       '</option>' +
-    '<option value ="Food">' +
+    '<option class="food" value ="Food">' +
     'Food'+'</option>'+
     '<option value ="Sports">' +
     'Sports'+'</option>'+
