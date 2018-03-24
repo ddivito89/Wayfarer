@@ -328,7 +328,6 @@ function populateOne(id) {
         data: commentData
       }).then(function(data) {
         console.log(data)
-        populateOneComment(data)
       });
     });
 
