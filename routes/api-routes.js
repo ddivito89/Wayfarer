@@ -28,7 +28,9 @@ module.exports = function(app, io) {
   });
 
   app.get("/api/comments/", function(req, res) {
-    db.comments.findAll({}).then(function(dbComment) {
+    db.comments.findAll({order: [
+    ['createdAt', 'ASC']
+  ]}).then(function(dbComment) {
       res.json(dbComment);
     });
   });
