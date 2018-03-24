@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     post_img: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
         len: [1, 99]
       }
