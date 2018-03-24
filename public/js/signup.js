@@ -13,6 +13,7 @@ $(document).ready(function() {
     };
 
     if (!userData.email || !userData.password) {
+      alert("Please enter all fields")
       return;
     }
     // If we have an email and password, run the signUpUser function

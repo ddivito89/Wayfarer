@@ -82,6 +82,7 @@ function addMarker(e) {
     var categories = $('#categories').val()
     var position = newMarker.getLatLng();
     var postUrl = $('#post_url').attr("src")
+    
     postData = {
       'subject': postSubject,
       'text': postText,
@@ -102,7 +103,7 @@ function addMarker(e) {
   var popupBox = document.createElement('div');
 
   if (currentUserId) {
-    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "">' + 'Select a category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
+    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "None">' + 'No Category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
     $(popupBox).append("<br>");
     $(popupBox).append("<br>");
     $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
@@ -144,7 +145,7 @@ function addMarker(e) {
   var popupBox = document.createElement('div');
 
   if (currentUserId) {
-    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "">' + 'Select a category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
+    $(popupBox).append('<select name="categories" id="categories">' + '<option value = "None" default>' + 'No Category' + '</option>' + '<option value ="Food">' + 'Food' + '</option>' + '<option value ="Sports">' + 'Sports' + '</option>' + '<option value ="Drinks">' + 'Drinks' + '</option>')
     $(popupBox).append("<br>");
     $(popupBox).append("<br>");
     $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
