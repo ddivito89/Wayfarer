@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "root",
+    "password": "Cocochanel12",
     "database": "wayfarer",
     "host": "127.0.0.1",
     "dialect": "mysql"
