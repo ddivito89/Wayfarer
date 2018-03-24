@@ -2,7 +2,7 @@ var map = L.map('map');
 map.setView([
   41.8914, -87.6377
 ], 15);
-map.locate({setView: true, maxZoom: 15});
+// map.locate({setView: true, maxZoom: 15});
 map.doubleClickZoom.disable();
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18,
