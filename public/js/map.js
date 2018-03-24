@@ -222,11 +222,12 @@ function populateMap() {
         ], {icon: otherMarker}).addTo(map);
       }
       var popupBox = document.createElement('div');
+
       $(popupBox).attr('id', `post-${data[y].id}`)
+      $(popupBox).append(`<p>User${data[y].user_id}  ${moment(new Date(data[y].createdAt)).format("MM/DD/YYYY, hh:mm A")}</p>`)
       $(popupBox).append(`<p id="post_subject1">${data[y].subject}</p>`)
       $(popupBox).append(`<p id="post_text">${data[y].text}</p>`)
       $(popupBox).append(`<p>Category: ${data[y].categories}</p>`)
-      $(popupBox).append(`<p>User${data[y].user_id}</p>`)
       $(popupBox).append(`<img id="reload_img" src=" ${data[y].post_img} "/>`);
 
       if (currentUserId) {
@@ -246,7 +247,6 @@ function populateMap() {
             data: commentData
           }).then(function(data) {
             console.log(data)
-
           });
         });
 
@@ -307,10 +307,10 @@ function populateOne(id) {
     }
     var popupBox = document.createElement('div');
     $(popupBox).attr('id', `post-${data.id}`)
+    $(popupBox).append(`<p>User${data[y].user_id}  ${moment(new Date(data.createdAt)).format("MM/DD/YYYY, hh:mm A")}</p>`)
     $(popupBox).append(`<p id="post_subject1">${data.subject}</p>`)
     $(popupBox).append(`<p id="post_text">${data.text}</p>`)
     $(popupBox).append(`<p>Category:${data.categories}</p>`)
-    $(popupBox).append(`<p>User${data.user_id}</p>`)
     $(popupBox).append(`<img id="reload_img" src=" ${data.post_img} "/>`);
     if( currentUserId){
     $(popupBox).append(`<input placeholder="add a comment" type="textbox" id='newComment-${data.id}' class="commentBox"><br>`)
@@ -351,7 +351,7 @@ function populateOne(id) {
 //render comments
 function populateOneComment(comment) {
 
-  var newComment = (`<p>user${comment.user_id}: ${comment.text}</p>`)
+  var newComment = (`<p style="font-weight:bold">User${comment.user_id}  ${moment(new Date(comment.createdAt)).format("MM/DD/YYYY, hh:mm A")}:</p><p> ${comment.text}</p>`)
   $(`#comments-${comment.post_id}`).prepend(newComment)
   $(`#newComment-${comment.post_id}`).val('')
 
@@ -365,7 +365,7 @@ function populateComments() {
     console.log(data)
     for (var y = 0; y < data.length; y++) {
       var comment = data[y]
-      var newComment = (`<p>user${comment.user_id}: ${comment.text}</p>`)
+      var newComment = (`<p style="font-weight:bold">User${comment.user_id}  ${moment(new Date(comment.createdAt)).format("MM/DD/YYYY, hh:mm A")}:</p><p> ${comment.text}</p>`)
       $(`#comments-${comment.post_id}`).prepend(newComment)
       $(`#newComment-${comment.post_id}`).val('')
     }
