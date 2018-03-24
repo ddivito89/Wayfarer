@@ -11,7 +11,7 @@ $(document).ready(function() {
     } else {
       $(".member-name").empty()
       $(".member-name").text('logged in as ' + data.email);
-      $(".sidebar-map").append('<br><br><a href="/logout" id="logOutBtn">Log Out</a>')
+      $(".sidebar-map").append('<br><br><a href="/logout" id="logOutBtn" style="text-decoration:none">Log Out</a>')
       $("#modalBtn").hide()
       $("#auth-sidebar").hide()
     }
