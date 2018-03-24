@@ -13,7 +13,8 @@ $(document).ready(function() {
     };
 
     if (!userData.email || !userData.password) {
-      return;
+      alert('Invalid login: Email and password required');
+      return;   
     }
 
     // If we have an email and password we run the loginUser function and clear the form
@@ -33,7 +34,7 @@ $(document).ready(function() {
       // If there's an error, log the error
     }).catch(function(err) {
       console.log(err);
-      alert('invalid login')
+      alert('invalid login');
     });
   }
 
