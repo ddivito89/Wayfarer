@@ -70,8 +70,8 @@ function addMarker(e) {
         var size = blob.size;
         $('#post_url').attr('src', blob.url)
         $('#post_url').attr("visibility", "visible")
-        $('#post_url').attr('height', "50px")
-        $('#post_url').attr('width', "50px")
+        $('#post_url').attr('height', "100px")
+        $('#post_url').attr('width', "100px")
         // $(popupBox).append("<img style='width:50px; height:50px; ' src='" + url + "'id='post_url'>");
 
         console.log(blob.url)
@@ -117,6 +117,7 @@ function addMarker(e) {
     '<option value ="Drinks">' +
     'Drinks'+'</option>'
     )
+
       $(popupBox).append("<br>");
       $(popupBox).append("<br>");
       $(popupBox).append('<input placeholder="Subject" type="text" id="post_subject"><br>')
@@ -131,8 +132,6 @@ function addMarker(e) {
     } else {
       $(popupBox).append('<p>please login to post</p>')
     }
-
-    newMarker.bindPopup(popupBox,  {maxWidth : 1000});
 
     newMarker.bindPopup(popupBox);
 
@@ -168,7 +167,7 @@ function populateMap() {
           lat, lon
         ], {icon: otherMarker}).addTo(map);
       }
-       var popupBox = document.createElement('div');
+      var popupBox = document.createElement('div');
       $(popupBox).attr('id', `post-${data[y].id}`)
       $(popupBox).append(`<p id="post_subject1">${data[y].subject}</p>`)
       $(popupBox).append(`<p id="post_text">${data[y].text}</p>`)
@@ -177,7 +176,6 @@ function populateMap() {
       $(popupBox).append(`<img id="reload_img" src=" ${data[y].post_img} "/>`);
 
       marker.bindPopup(popupBox)
-      marker.bindPopup(popupBox,  {maxWidth : 1000});
     }
 
   })
@@ -209,10 +207,15 @@ function populateOne(id) {
     $(popupBox).append(`<img id="reload_img" src=" ${data.post_img} "/>`);
 
     marker.bindPopup(popupBox)
-    marker.bindPopup(popupBox,  {maxWidth : 1000});
 
   })
 }
+
+    map.on('popupopen', function(e) {
+        var px = map.project(e.popup._latlng); // find the pixel location on the map where the popup anchor is
+        px.y -= e.popup._container.clientHeight/2 // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
+        map.panTo(map.unproject(px),{animate: true}); // pan to new center
+    });        
 
 $(document).ready(function() {
   $.get("/api/user_data").then(function(data1) {
@@ -226,12 +229,6 @@ $(document).ready(function() {
   })
 
 })
-
-map.on('popupopen', function(e) {
-        var px = map.project(e.popup._latlng); // find the pixel location on the map where the popup anchor is
-        px.y -= e.popup._container.clientHeight/2 // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
-        map.panTo(map.unproject(px),{animate: true}); // pan to new center
-    });  
 
 //sockets
 

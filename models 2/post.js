@@ -5,19 +5,19 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 45]
+        len: [1, 99]
       }
     },
     text: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 45]
+        len: [1, 500]
       }
     },
     post_img: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
         len: [1, 99]
       }
